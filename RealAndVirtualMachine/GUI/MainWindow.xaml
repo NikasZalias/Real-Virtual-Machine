@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:gui="clr-namespace:RealAndVirtualMachine.GUI"
 
-        Title="MainWindow" Height="500" Width="800"
+        Title="Real and Virtual Machine" Height="500" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         >
     <Window.Resources>
         <gui:SymbolConverter x:Key="SymbolConverter"/>
         <gui:PagesViewConverter x:Key="PagesConverter" />
-        
+
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,25 +18,23 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <GridSplitter Grid.Column="0" Width="4" HorizontalAlignment="Right" Panel.ZIndex="99" />
-
-        
+        <GridSplitter Grid.Column="0" Width="4" Height="5" HorizontalAlignment="Right" Panel.ZIndex="99" />
 
         <Grid Column="1" Row="0">
 
-            <ListBox x:Name="RealMachinesMemoryList" ItemsSource="{Binding RealMachine.MemoryPages}" ScrollViewer.CanContentScroll="False">
+            <ListBox x:Name="RealMachinesMemoryList" ItemsSource="{Binding RealMachine.MemoryPages}" ScrollViewer.CanContentScroll="False" Margin="0,0,0,-39.5" Background="#4f4c4a">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" DataContext="{Binding Converter={StaticResource PagesConverter}}">                            
+                        <StackPanel Orientation="Horizontal" DataContext="{Binding Converter={StaticResource PagesConverter}}">
                             <StackPanel.Style >
                                 <Style TargetType="{x:Type StackPanel}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Path=IsAllocated}" Value="true">
                                             <Setter Property="Opacity" Value="1"/>
-                                            <Setter Property="Background" Value="#59DBF0"/>
+                                            <Setter Property="Background" Value="#FFB900"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Path=IsAllocated}" Value="false">
                                             <Setter Property="Opacity" Value="0.2"/>
@@ -49,11 +47,11 @@
                                 <Label Content ="{Binding PageNr}" />
                                 <Label Content="{Binding AllocatedToPage.PageNr}"  Foreground="Azure"/>
                             </StackPanel>
-                            
+
                             <ListBox ItemsSource="{Binding Memory}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="-1"  >
+                                        <StackPanel Orientation="Horizontal" Margin="-1" Background="#5c5957" >
                                             <!--<Label x:Name="VirtualAddress" Content="{Binding VirtualAddress}" Width="25" Height="20" Padding="0,0,2,0" Margin="0,-1,-1,0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FF858585" />-->
                                             <Label x:Name="WordByte1st" Content="{Binding [0], Converter={StaticResource SymbolConverter}}" Width="25" Height="20" Padding="0"  Margin="0,-1,-1,0" BorderThickness="1,1,0,1" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                                             <Label x:Name="WordByte2nd" Content="{Binding [1], Converter={StaticResource SymbolConverter}}" Width="25" Height="20" Padding="0"  Margin="0,-1,-1,0" BorderThickness="1,1,0,1" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -72,7 +70,8 @@
 
         </Grid>
 
-        <TabControl Grid.Row="0" Grid.Column="0" x:Name ="VirtualMachinesTabControl" ItemsSource="{Binding VirtualMachines}" SelectionChanged="VirtualMachinesTabControl_SelectionChanged"  >
+
+        <TabControl Grid.Row="0" Grid.Column="0" x:Name ="VirtualMachinesTabControl" ItemsSource="{Binding VirtualMachines}" SelectionChanged="VirtualMachinesTabControl_SelectionChanged" Background="#5c5957" >
 
             <TabControl.ItemTemplate>
                 <DataTemplate>
@@ -100,7 +99,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <GridSplitter Grid.Column="0" Width="2" HorizontalAlignment="Right"/>
-                        <TextBlock Grid.RowSpan="2" Grid.Row="0" x:Name="VirtualMachinesConsole" Grid.Column="0" Padding="10,0,0,0" Text="{Binding Console}" Foreground="White" Background="#FF575757" />
+                        <TextBlock Grid.RowSpan="2" Grid.Row="0" x:Name="VirtualMachinesConsole" Grid.Column="0" Padding="10,0,0,0" Text="{Binding Console}" Foreground="White" Background="#4C4A48" />
                         <Grid Grid.Column="1"
                              x:Name="VirtualMachinesRegistersGrid">
                             <Grid.RowDefinitions>
@@ -124,7 +123,7 @@
                             <Button x:Name="VirtualMachinesOneStepButton" Grid.Column="2" Grid.Row="0" Width="100" Height="30" Margin="0,2,10,2" Content="Take one step" 
                                     Foreground="White" BorderBrush="#FFBBBBBB" VerticalAlignment="Center" HorizontalAlignment="Center" Click="VirtualMachinesOneStepButton_OnClick" >
                                 <Button.Background>
-                                    <SolidColorBrush Color="#FF4F7CCB"/>
+                                    <SolidColorBrush Color="#FFB900"/>
                                 </Button.Background>
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
@@ -138,7 +137,7 @@
                             </Button>
                         </Grid>
 
-                        <ListBox Grid.Row="1" Grid.Column="1" x:Name="VirtualMachinesMemoryList" ItemsSource="{Binding PagesTable.VirtualPages}" ScrollViewer.CanContentScroll="False"  >
+                        <ListBox Grid.Row="1" Grid.Column="1" x:Name="VirtualMachinesMemoryList" ItemsSource="{Binding PagesTable.VirtualPages}" ScrollViewer.CanContentScroll="False" Background="#4C4A48">
                             <ListBox.ItemTemplate>
                                 <DataTemplate x:Name="VirtualMachineMemoryEntryTemplate" >
                                     <StackPanel Orientation="Horizontal" DataContext="{Binding Converter={StaticResource PagesConverter}}">
@@ -147,11 +146,11 @@
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsAllocated}" Value="true">
                                                         <Setter Property="Opacity" Value="1"/>
-                                                        <Setter Property="Background" Value="#59DBF0"/>
+                                                        <Setter Property="Background" Value="#FFB900"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsAllocated}" Value="false">
                                                         <Setter Property="Opacity" Value="0.2"/>
-                                                        <Setter Property="Background" Value="#97BABF"/>
+                                                        <Setter Property="Background" Value="#FFB900"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -163,7 +162,7 @@
                                         <ListBox ItemsSource="{Binding Memory}">
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <StackPanel x:Name="VirtualMachineMemoryEntry" Orientation="Horizontal" Margin="-1"  >
+                                                    <StackPanel x:Name="VirtualMachineMemoryEntry" Orientation="Horizontal" Margin="-1" Background="#5c5957" >
                                                         <!--<Label x:Name="VirtualAddress" Content="{Binding VirtualAddress}" Width="25" Height="20" Padding="0,0,2,0" Margin="0,-1,-1,0"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FF858585" />-->
                                                         <Label x:Name="WordByte1st" Content="{Binding [0], Converter={StaticResource SymbolConverter}}" Width="25" Height="20" Padding="0"  Margin="0,-1,-1,0" BorderThickness="1,1,0,1" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                                                         <Label x:Name="WordByte2nd" Content="{Binding [1], Converter={StaticResource SymbolConverter}}" Width="25" Height="20" Padding="0"  Margin="0,-1,-1,0" BorderThickness="1,1,0,1" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -186,32 +185,30 @@
         </TabControl>
 
         <!--Controlls-->
-        <Grid Grid.Row="1" Grid.ColumnSpan="2" Background="#007ACC">
+        <Grid Grid.ColumnSpan="1" Background="#4C4A48" Margin="0,422,0,0.5" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" HorizontalAlignment="Left" x:Name="OpenFileButton" Width="100" Margin="10,2,10,2" Content="Open program ..." Foreground="White" BorderBrush="#FFBBBBBB" Click="OpenFileButton_OnClick">
-                    <Button.Background>
-                        <SolidColorBrush Color="#FF4F7CCB"/>
-                    </Button.Background>
-                </Button>
 
-
-
-            <Button Grid.Column="1" Width="100" Margin="0,2,10,2" Content="Run" Foreground="White" BorderBrush="#FFBBBBBB" Click="Run_ButtonClick">
+            <Button Grid.Column="0" HorizontalAlignment="Left" x:Name="OpenFileButton" Width="100" Margin="148,4,0,0" Content="Open Program" Foreground="White" BorderBrush="#FFBBBBBB" Click="OpenFileButton_OnClick" Grid.ColumnSpan="2">
                 <Button.Background>
-                    <SolidColorBrush Color="#FF4F7CCB"/>
+                    <SolidColorBrush Color="#FFB900"/>
                 </Button.Background>
             </Button>
 
-            <Button Grid.Column="2" Width="100" Margin="0,2,10,2" Content="Run until interupt" Foreground="White" BorderBrush="#FFBBBBBB" Click="RunUntilInterup_ButtonClick" >
+            <Button Grid.Column="1" Width="100" Margin="102,4,100,0" Content="Launch" Foreground="White" BorderBrush="#FFBBBBBB" Click="Run_ButtonClick" Grid.ColumnSpan="2">
                 <Button.Background>
-                    <SolidColorBrush Color="#FF4F7CCB"/>
+                    <SolidColorBrush Color="#FFB900"/>
                 </Button.Background>
             </Button>
 
+            <Button Grid.Column="2" Width="100" Margin="56,4,-5,0" Content="Launch until&#x0a;   interrupt" Foreground="White" BorderBrush="#FFBBBBBB" Click="RunUntilInterup_ButtonClick" >
+                <Button.Background>
+                    <SolidColorBrush Color="#FFB900"/>
+                </Button.Background>
+            </Button>
         </Grid>
 
     </Grid>
