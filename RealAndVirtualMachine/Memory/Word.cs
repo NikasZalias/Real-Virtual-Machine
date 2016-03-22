@@ -23,7 +23,7 @@ namespace RealAndVirtualMachine.Memory
         }
 
         public Word(int value)
-            : this(value.ToString())
+            : this(value.ToString("X4"))
         {
         }
 
@@ -45,7 +45,7 @@ namespace RealAndVirtualMachine.Memory
         public int GetInt()
         {
             var str = GetString().TrimStart();
-            return Int32.Parse(str);
+            return Convert.ToInt32(str, 16);
         }
 
         public void SetInt(int value)
