@@ -19,7 +19,6 @@ namespace RealAndVirtualMachine.Machines
             DP = oldVirtualMachine.DP;
             PC = oldVirtualMachine.PC;
             SP = oldVirtualMachine.SP;
-            DP = oldVirtualMachine.DP;
             Console = new StringBuilder(oldVirtualMachine.Console.ToString());
             IsFinished = oldVirtualMachine.IsFinished;
             Name = oldVirtualMachine.Name;
@@ -410,6 +409,7 @@ namespace RealAndVirtualMachine.Machines
                 DoPF(command);
                 return;
             }
+            //stack data address
             if (command.StartsWith(Commands.DA.ToString()))
             {
                 DoDA(command);

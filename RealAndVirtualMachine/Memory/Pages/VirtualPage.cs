@@ -11,13 +11,12 @@ namespace RealAndVirtualMachine.Memory.Pages
         {
         }
 
-        //Set isMemoryAccesable value
         protected override bool IsMemoryAccesable()
         {
             return IsAllocated;
         }
 
-        //Inherited method from Page.cs to allocate memory
+        //Inherited method from Page.cs to allocate page
         public override void Allocate(Page allocateFor)
         {
             if (AllocatedToPage == allocateFor)
@@ -44,7 +43,7 @@ namespace RealAndVirtualMachine.Memory.Pages
             }
         }
 
-        //Inherited method from Page.cs to deallocate memory
+        //Inherited method from Page.cs to deallocate page
         public override void Deallocate(Page deallocateFrom)
         {
             if (deallocateFrom == null)

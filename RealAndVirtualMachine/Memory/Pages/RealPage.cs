@@ -26,13 +26,12 @@ namespace RealAndVirtualMachine.Memory.Pages
             ResetMemory();
         }
 
-        //Set IsMemoryAccesable value
         protected override bool IsMemoryAccesable()
         {
             return true;
         }
 
-        //Inherited method from Page.cs to allocate memory
+        //Inherited method from Page.cs to allocate page
         public override void Allocate(Page allocateFor)
         {
             if (!(allocateFor is VirtualPage))
@@ -56,7 +55,7 @@ namespace RealAndVirtualMachine.Memory.Pages
             allocateFor.Allocate(this);                 
         }
 
-        //Inherited method from Page.cs to deallocate memory
+        //Inherited method from Page.cs to deallocate page
         public override void Deallocate(Page deallocateFrom)
         {
             if (!(deallocateFrom is VirtualPage))
